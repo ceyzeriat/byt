@@ -31,7 +31,13 @@ depending on the python version you're running. You'll just use it like this:
 
     b = Byt('hello world!')
     print(b)
+    >> Byt('hello world!')
     print(b.hex())
+    >> '68 65 6c 6c 6f 20 77 6f 72 6c 64 21'
+    print(byt.Byt('str1') + 'str2')
+    >> TypeError: can't concat Byt to str
+    byt.Byt('str1')[2:].ints()
+	>> [114, 49]
 
 
 Documentation
