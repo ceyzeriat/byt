@@ -37,7 +37,7 @@ depending on the python version you're running. You'll just use it like this:
     print(byt.Byt('str1') + 'str2')
     >> TypeError: can't concat Byt to str
     byt.Byt('str1')[2:].ints()
-	>> [114, 49]
+    >> [114, 49]
 
 
 Documentation
