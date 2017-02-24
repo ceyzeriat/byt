@@ -57,7 +57,7 @@ if PYTHON3:
                 return Byt(super().__getitem__(pos))
 
         def __eq__(self, other):
-            if not isinstance(other, Byt):
+            if not type(other).__name__ == 'Byt':
                 if isinstance(other, (str, bytes)):
                     raise TypeError("can't compare Byt and " +
                                         type(other).__name__)
@@ -67,7 +67,7 @@ if PYTHON3:
                 return super().__eq__(other)
 
         def __ne__(self, other):
-            if not isinstance(other, Byt):
+            if not type(other).__name__ == 'Byt':
                 if isinstance(other, (str, bytes)):
                     raise TypeError("can't compare Byt and " +
                                         type(other).__name__)
@@ -106,7 +106,7 @@ if PYTHON3:
             return Byt(super().__rmul__(other))
 
         def __contains__(self, other):
-            if not isinstance(other, Byt):
+            if not type(other).__name__ == 'Byt':
                 if isinstance(other, (str, bytes)):
                     raise TypeError("can't compare Byt to " +
                                         type(other).__name__)
@@ -198,7 +198,7 @@ else:
             return Byt(super(Byt, self).__getslice__(deb, fin))
 
         def __eq__(self, other):
-            if not isinstance(other, Byt):
+            if not type(other).__name__ == 'Byt':
                 if isinstance(other, (str, unicode)):
                     raise TypeError("can't compare Byt and " +
                                         type(other).__name__)
@@ -208,7 +208,7 @@ else:
                 return super(Byt, self).__eq__(other)
 
         def __ne__(self, other):
-            if not isinstance(other, Byt):
+            if not type(other).__name__ == 'Byt':
                 if isinstance(other, (str, unicode)):
                     raise TypeError("can't compare Byt and " +
                                         type(other).__name__)
@@ -247,7 +247,7 @@ else:
             return Byt(super(Byt, self).__rmul__(other))
 
         def __contains__(self, other):
-            if not isinstance(other, Byt):
+            if not type(other).__name__ == 'Byt':
                 if isinstance(other, (str, unicode)):
                     raise TypeError("can't compare Byt to " +
                                         type(other).__name__)
