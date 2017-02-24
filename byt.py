@@ -30,7 +30,7 @@ PYTHON3 = version_info > (3,)
 
 
 __all__ = ["Byt", "__version__", "__author__", "__copyright__", "__contributors__"]
-__version__ = "1.0.2"
+__version__ = "1.0.3"
 __major__, __minor__, __micro__ = list(map(int, __version__.split('.')))
 __author__ = "Guillaume Schworer (guillaume.schworer@gmail.com)"
 __copyright__ = "Copyright 2017 Guillaume Schworer"
@@ -90,12 +90,12 @@ if PYTHON3:
                 yield Byt(ch)
 
         def __add__(self, txt):
-            if not isinstance(txt, Byt):
+            if not type(txt).__name__ == 'Byt':
                 raise TypeError("can't concat Byt to " + type(txt).__name__)
             return Byt(super().__add__(txt))
 
         def __radd__(self, txt):
-            if not isinstance(txt, Byt):
+            if not type(txt).__name__ == 'Byt':
                 raise TypeError("can't concat Byt to " + type(txt).__name__)
             return Byt(txt.__add__(self))
 
@@ -132,17 +132,18 @@ if PYTHON3:
             return ' '.join(super(Byt, ch).hex() for ch in self)
 
         def split(self, sep=None, maxsplit=-1):
-            if not isinstance(sep, Byt) and sep is not None:
+            if not type(sep).__name__ == 'Byt' and sep is not None:
                 raise TypeError("can't split Byt and " + type(sep).__name__)
             return list(map(Byt, super().split(sep, maxsplit)))
 
         def rsplit(self, sep=None, maxsplit=-1):
-            if not isinstance(sep, Byt) and sep is not None:
+            if not type(sep).__name__ == 'Byt' and sep is not None:
                 raise TypeError("can't rsplit Byt and " + type(sep).__name__)
             return list(map(Byt, super().rsplit(sep, maxsplit)))
 
         def replace(self, old, new, count=-1):
-            if not isinstance(old, Byt) or not isinstance(new, Byt):
+            if not type(old).__name__ == 'Byt' or\
+                    not type(new).__name__ == 'Byt':
                 raise TypeError("can't replace with non-Byt characters")
             return Byt(super().replace(old, new, count))
 
@@ -150,17 +151,17 @@ if PYTHON3:
             return Byt(super().zfill(width))
 
         def strip(self, bytes=None):
-            if not isinstance(bytes, Byt) and bytes is not None:
+            if not type(bytes).__name__ == 'Byt' and bytes is not None:
                 raise TypeError("can't strip Byt and " + type(bytes).__name__)
             return Byt(super().strip(bytes))
 
         def lstrip(self, bytes=None):
-            if not isinstance(bytes, Byt) and bytes is not None:
+            if not type(bytes).__name__ == 'Byt' and bytes is not None:
                 raise TypeError("can't lstrip Byt and " + type(bytes).__name__)
             return Byt(super().lstrip(bytes))
 
         def rstrip(self, bytes=None):
-            if not isinstance(bytes, Byt) and bytes is not None:
+            if not type(bytes).__name__ == 'Byt' and bytes is not None:
                 raise TypeError("can't rstrip Byt and " + type(bytes).__name__)
             return Byt(super().rstrip(bytes))
 
@@ -168,7 +169,7 @@ if PYTHON3:
             if len(iterable_of_bytes) == 0:
                 return Byt()
             for item in iterable_of_bytes:
-                if not isinstance(item, Byt):
+                if not type(item).__name__ == 'Byt':
                     raise TypeError("can't join non-Byt characters")
             else:
                 return Byt(super().join(iterable_of_bytes))
@@ -231,12 +232,12 @@ else:
                 yield Byt(ch)
 
         def __add__(self, txt):
-            if not isinstance(txt, Byt):
+            if not type(txt).__name__ == 'Byt':
                 raise TypeError("can't concat Byt to " + type(txt).__name__)
             return Byt(super(Byt, self).__add__(txt))
 
         def __radd__(self, txt):
-            if not isinstance(txt, Byt):
+            if not type(txt).__name__ == 'Byt':
                 raise TypeError("can't concat Byt to " + type(txt).__name__)
             return txt.__add__(self)
 
@@ -273,17 +274,18 @@ else:
             return ' '.join(hexlify(ch) for ch in self)
 
         def split(self, sep=None, maxsplit=-1):
-            if not isinstance(sep, Byt) and sep is not None:
+            if not type(sep).__name__ == 'Byt' and sep is not None:
                 raise TypeError("can't split Byt and " + type(sep).__name__)
             return list(map(Byt, super(Byt, self).split(sep, maxsplit)))
 
         def rsplit(self, sep=None, maxsplit=-1):
-            if not isinstance(sep, Byt) and sep is not None:
+            if not type(sep).__name__ == 'Byt' and sep is not None:
                 raise TypeError("can't rsplit Byt and " + type(sep).__name__)
             return list(map(Byt, super(Byt, self).rsplit(sep, maxsplit)))
 
         def replace(self, old, new, count=-1):
-            if not isinstance(old, Byt) or not isinstance(new, Byt):
+            if not type(old).__name__ == 'Byt' or\
+                    not type(new).__name__ == 'Byt':
                 raise TypeError("can't replace with non-Byt characters")
             return Byt(super(Byt, self).replace(old, new, count))
 
@@ -291,17 +293,17 @@ else:
             return Byt(super(Byt, self).zfill(width))
 
         def strip(self, bytes=None):
-            if not isinstance(bytes, Byt) and bytes is not None:
+            if not type(bytes).__name__ == 'Byt' and bytes is not None:
                 raise TypeError("can't strip Byt and " + type(bytes).__name__)
             return Byt(super(Byt, self).strip(bytes))
 
         def lstrip(self, bytes=None):
-            if not isinstance(bytes, Byt) and bytes is not None:
+            if not type(bytes).__name__ == 'Byt' and bytes is not None:
                 raise TypeError("can't strip Byt and " + type(bytes).__name__)
             return Byt(super(Byt, self).lstrip(bytes))
 
         def rstrip(self, bytes=None):
-            if not isinstance(bytes, Byt) and bytes is not None:
+            if not type(bytes).__name__ == 'Byt' and bytes is not None:
                 raise TypeError("can't strip Byt and " + type(bytes).__name__)
             return Byt(super(Byt, self).rstrip(bytes))
 
@@ -309,7 +311,7 @@ else:
             if len(iterable_of_bytes) == 0:
                 return Byt()
             for item in iterable_of_bytes:
-                if not isinstance(item, Byt):
+                if not type(item).__name__ == 'Byt':
                     raise TypeError("can't join non-Byt characters")
             else:
                 return Byt(super(Byt, self).join(iterable_of_bytes))
