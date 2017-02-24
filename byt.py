@@ -30,7 +30,7 @@ PYTHON3 = version_info > (3,)
 
 
 __all__ = ["Byt", "__version__", "__author__", "__copyright__", "__contributors__"]
-__version__ = "1.0.1"
+__version__ = "1.0.2"
 __major__, __minor__, __micro__ = list(map(int, __version__.split('.')))
 __author__ = "Guillaume Schworer (guillaume.schworer@gmail.com)"
 __copyright__ = "Copyright 2017 Guillaume Schworer"
