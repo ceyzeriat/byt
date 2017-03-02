@@ -25,7 +25,7 @@ before_script: # configure a headless display to test plot generation
     - sleep 3 # give xvfb some time to start
 
 script:
-    - nosetests byt --with-coverage --cover-package=byt
+    - nosetests --exe byt --with-coverage --cover-package=byt
 
 after_success:
     - coveralls
