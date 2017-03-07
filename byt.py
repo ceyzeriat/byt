@@ -25,6 +25,7 @@
 ###############################################################################
 
 
+from binascii import hexlify
 from sys import version_info
 PYTHON3 = version_info > (3,)
 
@@ -65,6 +66,14 @@ if PYTHON3:
                     return False
             else:
                 return super().__eq__(other)
+
+        @classmethod
+        def fromHex(cls, hexes):
+            """
+            Creates a Byt instance from a '12 ab 34 cd' string,
+            equivalent to Byt.hex() method output
+            """
+            return cls(binascii.unhexlify(hexes.replace(" ", "")))
 
         def __ne__(self, other):
             if not type(other).__name__ == 'Byt':
@@ -176,7 +185,6 @@ if PYTHON3:
 
 else:
 
-    from binascii import hexlify
     from types import GeneratorType
 
     class Byt(str):
@@ -207,6 +215,14 @@ else:
                     return False
             else:
                 return super(Byt, self).__eq__(other)
+
+        @classmethod
+        def fromHex(cls, hexes):
+            """
+            Creates a Byt instance from a '12 ab 34 cd' string,
+            equivalent to Byt.hex() method output
+            """
+            return cls(binascii.unhexlify(hexes.replace(" ", "")))
 
         def __ne__(self, other):
             if not type(other).__name__ == 'Byt':
