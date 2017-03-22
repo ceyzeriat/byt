@@ -26,7 +26,7 @@ setup(
     version=version,
     author="Guillaume Schworer",
     author_email="guillaume.schworer@gmail.com",
-    py_modules=["byt"],
+    packages=["byt"],
     url="https://github.com/ceyzeriat/byt/",
     license="GNU",
     description="Version-independent bytes-chains",
@@ -35,8 +35,9 @@ setup(
                     + "---------\n\n"
                     + open("HISTORY.rst").read(),
     install_requires=[],
-    package_data={"": ["README.rst", "LICENSE", "HISTORY.rst"]},
+    package_data={"": ["README.rst", "AUTHORS.rst", "LICENSE", "HISTORY.rst"]},
     include_package_data=True,
+    download_url = 'https://github.com/ceyzeriat/byt/tree/master/dist',
     keywords = ['bytes', 'chain', 'octet', 'string', 'hexa', 'hexadecimal', 'python2', 'python3', 'version', 'independent'],
     classifiers=[
         "Development Status :: 4 - Beta",
