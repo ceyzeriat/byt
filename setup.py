@@ -17,7 +17,7 @@ except ImportError:
     from distutils.core import setup
     setup
 
-version = re.findall(r"__version__ = \"(.*?)\"", open("byt.py").read())[0]
+version = re.findall(r"__version__ = \"(.*?)\"", open("byt/byt.py").read())[0]
 
 
 setup(

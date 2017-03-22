@@ -3,7 +3,7 @@
 
 ###############################################################################
 #  
-#  CTRL - Ground-Segment software for Cube-Sats
+#  byt - Version-independent bytes-chains
 #  Copyright (C) 2016-2017  Guillaume Schworer
 #  
 #  This program is free software: you can redistribute it and/or modify
@@ -26,7 +26,7 @@
 
 
 from nose.tools import raises
-from byt import Byt
+from ..byt import Byt
 
 
 def test_creation():
@@ -86,6 +86,9 @@ def test_fct():
     assert Byt(' ').join([Byt('a'), Byt('z')]) == Byt('a z')
     assert Byt(' ').join([Byt('az')]) == Byt('az')
     assert Byt(' ').join(Byt('az')) == Byt('a z')
+
+def test_fromhex():
+    assert Byt.fromHex(Byt('hop').hex()) == Byt('hop')
 
 @raises(TypeError)
 def test_wrong_eq():

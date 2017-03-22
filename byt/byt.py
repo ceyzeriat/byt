@@ -26,12 +26,14 @@
 
 
 from binascii import hexlify
+from binascii import unhexlify
 from sys import version_info
 PYTHON3 = version_info > (3,)
 
 
-__all__ = ["Byt", "__version__", "__author__", "__copyright__", "__contributors__"]
-__version__ = "1.0.3"
+__all__ = ["Byt", "__version__", "__major__", "__minor__", "__micro__",
+           "__author__", "__copyright__", "__contributors__"]
+__version__ = "1.0.4"
 __major__, __minor__, __micro__ = list(map(int, __version__.split('.')))
 __author__ = "Guillaume Schworer (guillaume.schworer@gmail.com)"
 __copyright__ = "Copyright 2017 Guillaume Schworer"
@@ -70,10 +72,10 @@ if PYTHON3:
         @classmethod
         def fromHex(cls, hexes):
             """
-            Creates a Byt instance from a '12 ab 34 cd' string,
+            Creates a Byt instance from a, e.g., '12 ab 34 cd' string,
             equivalent to Byt.hex() method output
             """
-            return cls(binascii.unhexlify(hexes.replace(" ", "")))
+            return cls(unhexlify(hexes.replace(" ", "")))
 
         def __ne__(self, other):
             if not type(other).__name__ == 'Byt':
@@ -126,18 +128,21 @@ if PYTHON3:
 
         def iterInts(self):
             """
-            Returns the iterator of ints
+            Returns the iterator of ASCII integers-codes
             """
             for ch in super().__iter__():
                 yield ch
 
         def ints(self):
             """
-            Returns the list of ints
+            Returns the list of ASCII integers-codes
             """
             return list(self.iterInts())
 
         def hex(self):
+            """
+            Returns a hexadecimal representation of the bytes-chain
+            """
             return ' '.join(super(Byt, ch).hex() for ch in self)
 
         def split(self, sep=None, maxsplit=-1):
@@ -222,7 +227,7 @@ else:
             Creates a Byt instance from a '12 ab 34 cd' string,
             equivalent to Byt.hex() method output
             """
-            return cls(binascii.unhexlify(hexes.replace(" ", "")))
+            return cls(unhexlify(hexes.replace(" ", "")))
 
         def __ne__(self, other):
             if not type(other).__name__ == 'Byt':
@@ -275,18 +280,21 @@ else:
 
         def iterInts(self):
             """
-            Returns the iterator of ints
+            Returns the iterator of ASCII integers-codes
             """
             for ch in self.__str__():
                 yield ord(ch)
 
         def ints(self):
             """
-            Returns the list of ints
+            Returns the list of ASCII integers-codes
             """
             return list(self.iterInts())
 
         def hex(self):
+            """
+            Returns a hexadecimal representation of the bytes-chain
+            """
             return ' '.join(hexlify(ch) for ch in self)
 
         def split(self, sep=None, maxsplit=-1):
