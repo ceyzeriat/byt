@@ -33,7 +33,7 @@ PYTHON3 = version_info > (3,)
 
 __all__ = ["Byt", "__version__", "__major__", "__minor__", "__micro__",
            "__author__", "__copyright__", "__contributors__"]
-__version__ = "1.0.7"
+__version__ = "1.0.8"
 __major__, __minor__, __micro__ = list(map(int, __version__.split('.')))
 __author__ = "Guillaume Schworer (guillaume.schworer@gmail.com)"
 __copyright__ = "Copyright 2017 Guillaume Schworer"
@@ -94,7 +94,8 @@ if PYTHON3:
             return super().__hash__()
 
         def __repr__(self):
-            return "{}('{}')".format(self.__class__.__name__, self.__str__())
+            return "{}({})".format(self.__class__.__name__,
+                                   repr(self.__str__()))
 
         def __iter__(self):
             for ch in super().__iter__():
@@ -246,7 +247,8 @@ else:
             return super(Byt, self).__hash__()
 
         def __repr__(self):
-            return "{}('{}')".format(self.__class__.__name__, self.__str__())
+            return "{}({})".format(self.__class__.__name__,
+                                   repr(self.__str__()))
 
         def __iter__(self):
             for ch in self.__str__():
