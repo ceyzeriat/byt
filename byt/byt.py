@@ -31,9 +31,8 @@ from sys import version_info
 PYTHON3 = version_info > (3,)
 
 
-__all__ = ["Byt", "__version__", "__major__", "__minor__", "__micro__",
-           "__author__", "__copyright__", "__contributors__", "DByt", "BytQ",
-           "DBytQ"]
+__all__ = ["Byt", "DByt", "__version__", "__major__", "__minor__", "__micro__",
+           "__author__", "__copyright__", "__contributors__"]
 __version__ = "1.0.9"
 __major__, __minor__, __micro__ = list(map(int, __version__.split('.')))
 __author__ = "Guillaume Schworer (guillaume.schworer@gmail.com)"
