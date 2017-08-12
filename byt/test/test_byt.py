@@ -41,11 +41,6 @@ def test_creation_Byt():
     assert Byt(u'abc') == Byt([97, 98, 99])
     assert eval(repr(Byt('abc\x03'))) == Byt('abc\x03')
 
-def test_creation_DByt():
-    assert DByt() == DByt('')
-    assert eval(repr(DByt('abc\x03'))) == DByt('abc\x03')
-    assert str(DByt(' a')) == DByt(' a').hex()
-
 def test_slice_iter():
     assert Byt('abc')[0] == Byt('a')
     assert Byt('abc')[-1] == Byt('c')
@@ -64,7 +59,7 @@ def test_slice_iter():
     assert [ch for ch in Byt('abc').iterInts()] == Byt('abc').ints()
 
 def test_str_concat():
-    assert str(Byt('abc')) == 'abc'
+    assert str(Byt('abc')) == Byt('abc').hex()
     assert Byt('az') + Byt('a') == Byt('aza')
     assert Byt('a') + Byt('az')[0] == Byt('aa')
     assert Byt('abc').hex() == '61 62 63'
@@ -217,3 +212,19 @@ def test_wrong_ne_ter():
 @raises(TypeError)
 def test_contains_ter():
     u'r' in Byt('azc')
+
+@raises(TypeError)
+def test_wrong_find():
+    Byt('abc').find(b'a')
+
+@raises(TypeError)
+def test_wrong_count():
+    Byt('abc').count(b'a')
+
+@raises(TypeError)
+def test_wrong_endswith():
+    Byt('abc').endswith(b'a')
+
+@raises(TypeError)
+def test_wrong_startswith():
+    Byt('abc').startswith(b'a')
