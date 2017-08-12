@@ -90,8 +90,8 @@ if PYTHON3:
         def __str__(self):
             return self.hex()
 
-        def str(self, encoding='ISO-8859-1'):
-            return self.decode(encoding)
+        def str(self):
+            return self.decode('ISO-8859-1')
 
         def __hash__(self):
             return super().__hash__()
@@ -284,6 +284,9 @@ else:
                 return super(Byt, self).__ne__(other)
 
         def __str__(self):
+            return self.hex()
+
+        def str(self):
             return super(Byt, self).__str__()
 
         def __hash__(self):

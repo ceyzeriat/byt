@@ -60,6 +60,7 @@ def test_slice_iter():
 
 def test_str_concat():
     assert str(Byt('abc')) == Byt('abc').hex()
+    assert Byt('abc').str() == 'abc'
     assert Byt('az') + Byt('a') == Byt('aza')
     assert Byt('a') + Byt('az')[0] == Byt('aa')
     assert Byt('abc').hex() == '61 62 63'
@@ -88,11 +89,11 @@ def test_fct():
     assert Byt(' ').join(Byt('az')) == Byt('a z')
     assert Byt('abcdef').find(Byt('b')) == 1
     assert Byt('abcdef').find(Byt('z')) == -1
-    assert Byt('abcdef').count('a') == 1
-    assert Byt('abcdef').endswith('ef') == True
-    assert Byt('abcdef').endswith('ef', None, -2) == False
-    assert Byt('abcdef').startswith('a') == True
-    assert Byt('abcdef').startswith('a', 1) == False
+    assert Byt('abcdef').count(Byt('a')) == 1
+    assert Byt('abcdef').endswith(Byt('ef')) == True
+    assert Byt('abcdef').endswith(Byt('ef'), None, -2) == False
+    assert Byt('abcdef').startswith(Byt('a')) == True
+    assert Byt('abcdef').startswith(Byt('a'), 1) == False
 
 def test_fromhex():
     assert Byt.fromHex(Byt('hop').hex()) == Byt('hop')
