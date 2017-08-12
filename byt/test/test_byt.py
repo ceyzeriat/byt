@@ -59,7 +59,7 @@ def test_slice_iter():
 
 def test_str_concat():
     assert str(Byt('abc')) == 'abc'
-    assert repr(Byt('abc')) == "Byt('abc')"
+    assert eval(repr(Byt('abc\x03'))) == Byt('abc\x03')
     assert Byt('az') + Byt('a') == Byt('aza')
     assert Byt('a') + Byt('az')[0] == Byt('aa')
     assert Byt('abc').hex() == '61 62 63'
