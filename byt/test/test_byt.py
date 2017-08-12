@@ -40,7 +40,7 @@ def test_creation_Byt():
     assert Byt(b'abc') == Byt([97, 98, 99])
     assert Byt(u'abc') == Byt([97, 98, 99])
     assert eval(repr(Byt('abc\x03'))) == Byt('abc\x03')
-    assert Byt(Byt('aze')) = Byt('aze')
+    assert Byt(Byt('aze')) == Byt('aze')
 
 def test_creation_DByt():
     assert DByt() == DByt('')
@@ -108,8 +108,8 @@ def test_Byt_DByt_compatibility():
     assert Byt() == DByt()
     assert Byt(12) == DByt(12)
     assert Byt(12) + DByt(12) == Byt([12,12])
-    assert Byt(DByt('azer')) = Byt('azer')
-    assert DByt(Byt('azer')) = Byt('azer')
+    assert Byt(DByt('azer')) == Byt('azer')
+    assert DByt(Byt('azer')) == Byt('azer')
 
 def test_fct_compatibility():
     assert DByt('azc').split(Byt('z')) == [DByt('a'), Byt('c')]
