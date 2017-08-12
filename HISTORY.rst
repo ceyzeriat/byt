@@ -1,8 +1,8 @@
-1.0.10 (2017-08-12)
+1.0.11 (2017-08-12)
 ++++++++++++++++++
 
-- made hexadecimal the default display (str) while repr remains ASCII-based
-- new method 'str'
+- Added DByt hexadecimal as the default __str__, while __repr__ remains ASCII-based
+- New method 'str'
 
 
 1.0.8 (2017-06-26)

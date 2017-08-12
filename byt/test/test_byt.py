@@ -41,6 +41,13 @@ def test_creation_Byt():
     assert Byt(u'abc') == Byt([97, 98, 99])
     assert eval(repr(Byt('abc\x03'))) == Byt('abc\x03')
 
+def test_creation_DByt():
+    assert DByt() == DByt('')
+    assert eval(repr(DByt('abc\x03'))) == DByt('abc\x03')
+    assert str(DByt('abc')) == DByt('abc').hex()
+    assert DByt('abc').str() == 'abc'
+    assert DByt('abc').hex() == '61 62 63'
+
 def test_slice_iter():
     assert Byt('abc')[0] == Byt('a')
     assert Byt('abc')[-1] == Byt('c')
@@ -59,7 +66,7 @@ def test_slice_iter():
     assert [ch for ch in Byt('abc').iterInts()] == Byt('abc').ints()
 
 def test_str_concat():
-    assert str(Byt('abc')) == Byt('abc').hex()
+    assert str(Byt('abc')) == Byt('abc')
     assert Byt('abc').str() == 'abc'
     assert Byt('az') + Byt('a') == Byt('aza')
     assert Byt('a') + Byt('az')[0] == Byt('aa')
@@ -94,6 +101,35 @@ def test_fct():
     assert Byt('abcdef').endswith(Byt('ef'), None, -2) == False
     assert Byt('abcdef').startswith(Byt('a')) == True
     assert Byt('abcdef').startswith(Byt('a'), 1) == False
+
+def test_Byt_DByt_compatibility():
+    assert Byt() == DByt()
+    assert Byt(12) == DByt(12)
+    assert Byt(12) + DByt(12) == Byt([12,12])
+
+def test_fct_compatibility():
+    assert DByt('azc').split(Byt('z')) == [DByt('a'), Byt('c')]
+    assert Byt('azczd').split(DByt('z'), 1) == [Byt('a'), DByt('czd')]
+    assert DByt('azczd').rsplit(Byt('z'), 1) == [Byt('azc'), DByt('d')]
+    assert Byt('abc').replace(DByt('a'), Byt('t')) == DByt('tbc')
+    assert DByt('abc').zfill(4) == Byt('0abc')
+    assert DByt('abc').zfill(2) == Byt('abc')
+    assert Byt('abc').strip(DByt('a')) == Byt('bc')
+    assert DByt('azc').strip(Byt('az')) == Byt('c')
+    assert DByt('azc').strip(Byt('za')) == DByt('c')
+    assert Byt('azc').rstrip(DByt('ac')) == DByt('az')
+    assert Byt('abc').lstrip(DByt('ac')) == Byt('bc')
+    assert Byt(' ').join([]) == DByt()
+    assert Byt(' ').join([DByt('a'), DByt('z')]) == Byt('a z')
+    assert DByt(' ').join([Byt('az')]) == DByt('az')
+    assert Byt(' ').join(Byt('az')) == DByt('a z')
+    assert Byt('abcdef').find(DByt('b')) == 1
+    assert DByt('abcdef').find(Byt('z')) == -1
+    assert Byt('abcdef').count(DByt('a')) == 1
+    assert DByt('abcdef').endswith(Byt('ef')) == True
+    assert Byt('abcdef').endswith(DByt('ef'), None, -2) == False
+    assert DByt('abcdef').startswith(Byt('a')) == True
+    assert Byt('abcdef').startswith(DByt('a'), 1) == False
 
 def test_fromhex():
     assert Byt.fromHex(Byt('hop').hex()) == Byt('hop')
