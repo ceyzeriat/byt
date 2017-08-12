@@ -48,7 +48,7 @@ def test_creation_DByt():
     assert str(DByt('abc')) == DByt('abc').hex()
     assert DByt('abc').str() == 'abc'
     assert DByt('abc').hex() == '61 62 63'
-    assert DByt(DByt('aze')) = DByt('aze')
+    assert DByt(DByt('aze')) == DByt('aze')
 
 def test_slice_iter():
     assert Byt('abc')[0] == Byt('a')

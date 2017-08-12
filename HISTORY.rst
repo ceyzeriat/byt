@@ -1,4 +1,4 @@
-1.0.11 (2017-08-12)
+1.0.12 (2017-08-12)
 ++++++++++++++++++
 
 - Added DByt hexadecimal as the default __str__, while __repr__ remains ASCII-based
