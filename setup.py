@@ -4,10 +4,13 @@
 from sys import argv, exit
 import re, os
 
+m = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "byt", "byt.py")).read()
+version = re.findall(r"__version__ *= *\"(.*?)\"", m)[0]
+
 if "upl" in argv[1:]:
     import os
-    os.system("python setup.py register -r pypi")
-    os.system("python setup.py sdist upload -r pypi")
+    os.system("python setup.py sdist")
+    os.system("twine upload -r pypi ./dist/byt-{}.tar.gz".format(version))
     exit()
 
 try:
@@ -16,9 +19,6 @@ try:
 except ImportError:
     from distutils.core import setup
     setup
-
-m = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "byt", "byt.py")).read()
-version = re.findall(r"__version__ *= *\"(.*?)\"", m)[0]
 
 
 setup(

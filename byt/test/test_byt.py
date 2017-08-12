@@ -26,7 +26,7 @@
 
 
 from nose.tools import raises
-from ..byt import Byt
+from ..byt import Byt, DByt
 
 
 def test_creation_Byt():
