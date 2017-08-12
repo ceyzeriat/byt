@@ -46,13 +46,13 @@ if PYTHON3:
 
     class Byt(bytes):
         def __new__(cls, value=''):
+            if isinstance(value, Byt):
+                value = value.str()
             if isinstance(value, str):
                 # It's a unicode string:
                 value = value.encode('ISO-8859-1')
             elif isinstance(value, int):
                 value = chr(value).encode('ISO-8859-1')
-            elif isinstance(value, Byt):
-                value = value.str()
             return super().__new__(cls, value)
 
         def __getitem__(self, pos):
@@ -109,14 +109,14 @@ if PYTHON3:
                 yield type(self)(ch)
 
         def __add__(self, txt):
-            if not isinstance(other, Byt):
+            if not isinstance(txt, Byt):
             #if not type(txt).__name__ == self.__class__.__name__:
                 raise TypeError("can't concat {} to {}"\
                         .format(type(self).__name__, type(txt).__name__))
             return type(self)(super().__add__(txt))
 
         def __radd__(self, txt):
-            if not isinstance(other, Byt):
+            if not isinstance(txt, Byt):
             #if not type(txt).__name__ == self.__class__.__name__:
                 raise TypeError("can't concat {} to {}"\
                         .format(type(self).__name__, type(txt).__name__))
@@ -159,7 +159,7 @@ if PYTHON3:
             return ' '.join(super(Byt, ch).hex() for ch in self)
 
         def split(self, sep=None, maxsplit=-1):
-            if not isinstance(other, Byt) and sep is not None:
+            if not isinstance(sep, Byt) and sep is not None:
             #if not type(sep).__name__ == self.__class__.__name__\
             #                                    and sep is not None:
                 raise TypeError("can't split {} with {}"\
@@ -167,7 +167,7 @@ if PYTHON3:
             return list(map(type(self), super().split(sep, maxsplit)))
 
         def rsplit(self, sep=None, maxsplit=-1):
-            if not isinstance(other, Byt) and sep is not None:
+            if not isinstance(sep, Byt) and sep is not None:
             #if not type(sep).__name__ == self.__class__.__name__\
             #                                    and sep is not None:
                 raise TypeError("can't rsplit {} with {}"\
@@ -185,7 +185,7 @@ if PYTHON3:
             return type(self)(super().zfill(width))
 
         def strip(self, bytes=None):
-            if not isinstance(other, Byt) and bytes is not None:
+            if not isinstance(bytes, Byt) and bytes is not None:
             #if not type(bytes).__name__ == self.__class__.__name__\
             #                                        and bytes is not None:
                 raise TypeError("can't strip {} in {}"\
@@ -193,7 +193,7 @@ if PYTHON3:
             return type(self)(super().strip(bytes))
 
         def lstrip(self, bytes=None):
-            if not isinstance(other, Byt) and bytes is not None:
+            if not isinstance(bytes, Byt) and bytes is not None:
             #if not type(bytes).__name__ == self.__class__.__name__\
             #                                        and bytes is not None:
                 raise TypeError("can't lstrip {} in {}"\
@@ -201,7 +201,7 @@ if PYTHON3:
             return type(self)(super().lstrip(bytes))
 
         def rstrip(self, bytes=None):
-            if not isinstance(other, Byt) and bytes is not None:
+            if not isinstance(bytes, Byt) and bytes is not None:
             #if not type(bytes).__name__ == self.__class__.__name__\
             #                                        and bytes is not None:
                 raise TypeError("can't rstrip {} in {}"\
