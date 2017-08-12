@@ -31,7 +31,7 @@ from sys import version_info
 PYTHON3 = version_info > (3,)
 
 
-__all__ = ["Byt", "DByt", "__version__", "__major__", "__minor__", "__micro__",
+__all__ = ["Byt", "__version__", "__major__", "__minor__", "__micro__",
            "__author__", "__copyright__", "__contributors__"]
 __version__ = "1.0.9"
 __major__, __minor__, __micro__ = list(map(int, __version__.split('.')))
@@ -88,7 +88,10 @@ if PYTHON3:
                 return super().__ne__(other)
 
         def __str__(self):
-            return self.decode('ISO-8859-1')
+            return self.hex()
+
+        def str(self, encoding='ISO-8859-1'):
+            return self.decode(encoding)
 
         def __hash__(self):
             return super().__hash__()
@@ -227,7 +230,7 @@ if PYTHON3:
                 raise TypeError("can't search {} in {}"\
                         .format(type(prefix).__name__, type(self).__name__))
             else:
-                return super().endswith(prefix, start, end)
+                return super().startswith(prefix, start, end)
 
 else:
 
@@ -396,36 +399,27 @@ else:
         def find(self, sub, start=None, end=None):
             if not type(sub).__name__ == self.__class__.__name__:
                 raise TypeError("can't find {} in {}"\
-                        .format(type(bytes).__name__, type(self).__name__))
+                        .format(type(sub).__name__, type(self).__name__))
             else:
                 return super(Byt, self).find(sub, start, end)
 
         def count(self, sub, start=None, end=None):
             if not type(sub).__name__ == self.__class__.__name__:
                 raise TypeError("can't count {} in {}"\
-                        .format(type(bytes).__name__, type(self).__name__))
+                        .format(type(sub).__name__, type(self).__name__))
             else:
                 return super(Byt, self).count(sub, start, end)
 
         def endswith(self, suffix, start=None, end=None):
             if not type(suffix).__name__ == self.__class__.__name__:
                 raise TypeError("can't search {} in {}"\
-                        .format(type(bytes).__name__, type(self).__name__))
+                        .format(type(suffix).__name__, type(self).__name__))
             else:
                 return super(Byt, self).endswith(suffix, start, end)
 
         def startswith(self, prefix, start=None, end=None):
             if not type(prefix).__name__ == self.__class__.__name__:
                 raise TypeError("can't search {} in {}"\
-                        .format(type(bytes).__name__, type(self).__name__))
+                        .format(type(prefix).__name__, type(self).__name__))
             else:
-                return super(Byt, self).endswith(prefix, start, end)
-
-
-class DByt(Byt):
-    def __str__(self):
-        return self.hex()
-
-    def __repr__(self):
-        return "{}({})".format(self.__class__.__name__,
-                               repr(super(DByt, self).__str__()))
+                return super(Byt, self).startswith(prefix, start, end)

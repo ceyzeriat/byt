@@ -29,7 +29,7 @@ from nose.tools import raises
 from ..byt import Byt
 
 
-def test_creation():
+def test_creation_Byt():
     assert Byt() == Byt('')
     assert Byt('z') != Byt('a')
     assert not Byt('z') == Byt('a')
@@ -39,6 +39,12 @@ def test_creation():
     assert Byt('abc') == Byt([97, 98, 99])
     assert Byt(b'abc') == Byt([97, 98, 99])
     assert Byt(u'abc') == Byt([97, 98, 99])
+    assert eval(repr(Byt('abc\x03'))) == Byt('abc\x03')
+
+def test_creation_DByt():
+    assert DByt() == DByt('')
+    assert eval(repr(DByt('abc\x03'))) == DByt('abc\x03')
+    assert str(DByt(' a')) == DByt(' a').hex()
 
 def test_slice_iter():
     assert Byt('abc')[0] == Byt('a')
@@ -59,7 +65,6 @@ def test_slice_iter():
 
 def test_str_concat():
     assert str(Byt('abc')) == 'abc'
-    assert eval(repr(Byt('abc\x03'))) == Byt('abc\x03')
     assert Byt('az') + Byt('a') == Byt('aza')
     assert Byt('a') + Byt('az')[0] == Byt('aa')
     assert Byt('abc').hex() == '61 62 63'
@@ -86,6 +91,13 @@ def test_fct():
     assert Byt(' ').join([Byt('a'), Byt('z')]) == Byt('a z')
     assert Byt(' ').join([Byt('az')]) == Byt('az')
     assert Byt(' ').join(Byt('az')) == Byt('a z')
+    assert Byt('abcdef').find(Byt('b')) == 1
+    assert Byt('abcdef').find(Byt('z')) == -1
+    assert Byt('abcdef').count('a') == 1
+    assert Byt('abcdef').endswith('ef') == True
+    assert Byt('abcdef').endswith('ef', None, -2) == False
+    assert Byt('abcdef').startswith('a') == True
+    assert Byt('abcdef').startswith('a', 1) == False
 
 def test_fromhex():
     assert Byt.fromHex(Byt('hop').hex()) == Byt('hop')
