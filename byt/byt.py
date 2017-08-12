@@ -51,6 +51,8 @@ if PYTHON3:
                 value = value.encode('ISO-8859-1')
             elif isinstance(value, int):
                 value = chr(value).encode('ISO-8859-1')
+            elif isinstance(value, Byt):
+                value = value.str()
             return super().__new__(cls, value)
 
         def __getitem__(self, pos):
@@ -258,7 +260,9 @@ else:
                 value = chr(value)
             elif isinstance(value, GeneratorType):
                 value = list(value)
-            if hasattr(value, "__iter__"):
+            if isinstance(value, Byt):
+                value = value.str()
+            elif hasattr(value, "__iter__"):
                 if len(value) > 0:
                     if isinstance(value[0], int):
                         # It's a list of integers
