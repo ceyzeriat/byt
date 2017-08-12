@@ -98,7 +98,7 @@ if PYTHON3:
 
         def __repr__(self):
             return "{}({})".format(self.__class__.__name__,
-                                   repr(self.__str__()))
+                                   repr(self.str()))
 
         def __iter__(self):
             for ch in super().__iter__():
@@ -294,7 +294,7 @@ else:
 
         def __repr__(self):
             return "{}({})".format(self.__class__.__name__,
-                                   repr(self.__str__()))
+                                   repr(self.str()))
 
         def __iter__(self):
             for ch in super(Byt, self).__str__():
