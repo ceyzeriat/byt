@@ -66,7 +66,7 @@ def test_slice_iter():
     assert [ch for ch in Byt('abc').iterInts()] == Byt('abc').ints()
 
 def test_str_concat():
-    assert str(Byt('abc')) == Byt('abc')
+    assert str(Byt('abc')) == 'abc'
     assert Byt('abc').str() == 'abc'
     assert Byt('az') + Byt('a') == Byt('aza')
     assert Byt('a') + Byt('az')[0] == Byt('aa')
