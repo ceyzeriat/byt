@@ -1,3 +1,10 @@
+1.0.10 (2017-08-12)
+++++++++++++++++++
+
+- made hexadecimal the default display (str) while repr remains ASCII-based
+- new method 'str'
+
+
 1.0.8 (2017-06-26)
 ++++++++++++++++++
 
