@@ -1,7 +1,7 @@
 Byt
 ===
 
-Although the new python3 strings/bytes-chains are arguably neater than that of python2, writing code using them, and which is compatible with both versions, is nearly a nightmare. This package attempts to gap the major discontinuity in the management of strings and bytes-chains between the two major python versions, 2.6+ and 3.4+.
+Although the new python3 strings/bytes-chains are arguably neater than that of python2, writing code using them, and which is compatible with both versions, is nearly a nightmare. This package attempts to gap the major discontinuity in the management of strings and bytes-chains between the two major python versions, 2.7+ and 3.5+.
 
 Byt is a package subclassing ``str`` in python2 and ``bytes`` in python3. Its main design focus is to behaves exactly the same way, no matter the python version used. To achieve such behaviour, byt is extremely conservative: Byt objects will only work with other Byt objects (concatenate, find, replace, etc). This was (unfortunately?) necessary to ensure the somewhat lax python2 strings and bytes-chains mix-up work the same way as those of python3.
 
