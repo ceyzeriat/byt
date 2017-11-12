@@ -62,7 +62,7 @@ if PYTHON3:
             else:  # empty input
                 value = ''
             if isinstance(value, Byt):
-                value = value.str()
+                value = value.str().encode('ISO-8859-1')
             elif isinstance(value, str):
                 # It's a unicode, force ascii/latin-1 encoding
                 value = value.encode('ISO-8859-1')
