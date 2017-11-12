@@ -262,15 +262,15 @@ else:
                 value = args
             elif l == 1:  # one arg
                 value = args[0]
+                if isinstance(value, int):
+                    value = chr(value)
+                elif isinstance(value, Byt):
+                    value = value.str()
+                elif isinstance(value, GeneratorType):
+                    value = list(value)
             else:  # empty input
                 value = ''
-            if isinstance(value, int):
-                value = chr(value)
-            elif isinstance(value, GeneratorType):
-                value = list(value)
-            elif isinstance(value, Byt):
-                value = value.str()
-            elif hasattr(value, "__iter__"):
+            if hasattr(value, "__iter__"):
                 if len(value) > 0:
                     if isinstance(value[0], int):
                         # It's a list of integers

@@ -82,7 +82,8 @@ def test_str_concat():
     assert 2 * Byt('za')[0] == Byt('zz')
     assert Byt('a') in Byt('zaz')
     assert Byt('a') not in Byt('zcz')
-    assert 1 in Byt("12")
+    assert 1 not in Byt("12")
+    assert 5 in Byt(1,5,3)
 
 def test_fct():
     assert Byt('abc').split() == [Byt('abc')]
