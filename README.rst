@@ -1,5 +1,17 @@
-Byt
-===
+.. joystick
+
+.. image:: https://travis-ci.org/ceyzeriat/byt.svg?branch=master
+    :target: https://travis-ci.org/ceyzeriat/byt
+.. image:: https://coveralls.io/repos/github/ceyzeriat/byt/badge.svg
+    :target: https://coveralls.io/github/ceyzeriat/byt
+.. image:: http://img.shields.io/badge/license-GPLv3-blue.svg?style=flat
+    :target: https://github.com/ceyzeriat/byt/blob/master/LICENSE
+
+:Name: joystick
+:Website: https://github.com/ceyzeriat/byt
+:Author: Guillaume Schworer
+:Version: 1.1
+
 
 Although the new python3 strings/bytes-chains are arguably neater than that of python2, writing code using them, and which is compatible with both versions, is nearly a nightmare. This package attempts to gap the major discontinuity in the management of strings and bytes-chains between the two major python versions, 2.7+ and 3.5+.
 
