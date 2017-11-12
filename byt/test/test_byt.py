@@ -31,11 +31,15 @@ from ..byt import Byt, DByt
 
 def test_creation_Byt():
     assert Byt() == Byt('')
+    assert Byt([]) == Byt('')
+    assert Byt([1,2]) == Byt(i for i in (1,2))
+    assert Byt(Byt(1)) == Byt(1)
     assert Byt('z') != Byt('a')
     assert not Byt('z') == Byt('a')
     assert Byt('z') != 23
     assert not Byt('z') == 23
     assert Byt([0, 1, 2]) == Byt('\x00\x01\x02')
+    assert Byt([0, 1, 2]) == Byt(0,1,2)
     assert Byt('abc') == Byt([97, 98, 99])
     assert Byt(b'abc') == Byt([97, 98, 99])
     assert Byt(u'abc') == Byt([97, 98, 99])
@@ -78,6 +82,7 @@ def test_str_concat():
     assert 2 * Byt('za')[0] == Byt('zz')
     assert Byt('a') in Byt('zaz')
     assert Byt('a') not in Byt('zcz')
+    assert 1 in Byt("12")
 
 def test_fct():
     assert Byt('abc').split() == [Byt('abc')]
@@ -104,12 +109,15 @@ def test_fct():
     assert Byt('abcdef').startswith(Byt('a')) == True
     assert Byt('abcdef').startswith(Byt('a'), 1) == False
 
+
 def test_Byt_DByt_compatibility():
     assert Byt() == DByt()
     assert Byt(12) == DByt(12)
+    assert Byt(DByt(12)) == DByt(12)
     assert Byt(12) + DByt(12) == Byt([12,12])
-    assert Byt(DByt('azer')) == Byt('azer')
+    assert Byt(DByt(1,2)) == DByt(Byt([1,2]))
     assert DByt(Byt('azer')) == Byt('azer')
+    assert hash(Byt(12)) = hash(DByt(12))
 
 def test_fct_compatibility():
     assert DByt('azc').split(Byt('z')) == [DByt('a'), Byt('c')]

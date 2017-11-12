@@ -43,6 +43,8 @@ You'll just use it like this:
     >> b = Byt('hello world!')
     >> print(b)
     Byt('hello world!')
+    >> (Byt(1,2) + Byt("\x01\x02") + Byt([1,2])).hex()
+    '01 02 01 02 01 02'
     >> print(b.hex())
     68 65 6c 6c 6f 20 77 6f 72 6c 64 21
     >> eval(repr(b)) == b

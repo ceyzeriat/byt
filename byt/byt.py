@@ -33,7 +33,7 @@ PYTHON3 = version_info > (3,)
 
 __all__ = ["Byt", "DByt", "__version__", "__major__", "__minor__", "__micro__",
            "__author__", "__copyright__", "__contributors__"]
-__version__ = "1.0.12"
+__version__ = "1.0.13"
 __major__, __minor__, __micro__ = list(map(int, __version__.split('.')))
 __author__ = "Guillaume Schworer (guillaume.schworer@gmail.com)"
 __copyright__ = "Copyright 2017 Guillaume Schworer"
@@ -45,11 +45,26 @@ __contributors__ = [
 if PYTHON3:
 
     class Byt(bytes):
-        def __new__(cls, value=''):
+        """Python version-independent bytes-chains object, displayed as bytes
+
+        >> b = Byt([33,34,35,36])
+        >> b
+        DByt('!"#$')
+        >> str(b)
+        '!"#$'
+        """
+        def __new__(cls, *args):
+            l = len(args)
+            if l > 1:  # many args in
+                value = args
+            elif l == 1:  # one arg
+                value = args[0]
+            else:  # empty input
+                value = ''
             if isinstance(value, Byt):
-                return value
-            if isinstance(value, str):
-                # It's a unicode string:
+                value = value.str()
+            elif isinstance(value, str):
+                # It's a unicode, force ascii/latin-1 encoding
                 value = value.encode('ISO-8859-1')
             elif isinstance(value, int):
                 value = chr(value).encode('ISO-8859-1')
@@ -60,7 +75,6 @@ if PYTHON3:
 
         def __eq__(self, other):
             if not isinstance(other, Byt):
-            #if not type(other).__name__ == self.__class__.__name__:
                 if isinstance(other, (str, bytes)):
                     raise TypeError("can't compare {} and {}"\
                             .format(type(self).__name__, type(other).__name__))
@@ -79,7 +93,6 @@ if PYTHON3:
 
         def __ne__(self, other):
             if not isinstance(other, Byt):
-            #if not type(other).__name__ == self.__class__.__name__:
                 if isinstance(other, (str, bytes)):
                     raise TypeError("can't compare {} and {}"\
                         .format(type(self).__name__, type(other).__name__))
@@ -110,14 +123,12 @@ if PYTHON3:
 
         def __add__(self, txt):
             if not isinstance(txt, Byt):
-            #if not type(txt).__name__ == self.__class__.__name__:
                 raise TypeError("can't concat {} to {}"\
                         .format(type(self).__name__, type(txt).__name__))
             return type(self)(super().__add__(txt))
 
         def __radd__(self, txt):
             if not isinstance(txt, Byt):
-            #if not type(txt).__name__ == self.__class__.__name__:
                 raise TypeError("can't concat {} to {}"\
                         .format(type(self).__name__, type(txt).__name__))
             return type(self)(txt.__add__(self))
@@ -130,12 +141,11 @@ if PYTHON3:
 
         def __contains__(self, other):
             if not isinstance(other, Byt):
-            #if not type(other).__name__ == self.__class__.__name__:
-                if isinstance(other, (str, bytes)):
+                if not isinstance(other, int):
                     raise TypeError("can't compare {} to {}"\
                             .format(type(self).__name__, type(other).__name__))
                 else:
-                    return False
+                    return other in self.ints()
             else:
                 return super().__contains__(other)
 
@@ -160,24 +170,18 @@ if PYTHON3:
 
         def split(self, sep=None, maxsplit=-1):
             if not isinstance(sep, Byt) and sep is not None:
-            #if not type(sep).__name__ == self.__class__.__name__\
-            #                                    and sep is not None:
                 raise TypeError("can't split {} with {}"\
                         .format(type(self).__name__, type(sep).__name__))
             return list(map(type(self), super().split(sep, maxsplit)))
 
         def rsplit(self, sep=None, maxsplit=-1):
             if not isinstance(sep, Byt) and sep is not None:
-            #if not type(sep).__name__ == self.__class__.__name__\
-            #                                    and sep is not None:
                 raise TypeError("can't rsplit {} with {}"\
                         .format(type(self).__name__, type(sep).__name__))
             return list(map(type(self), super().rsplit(sep, maxsplit)))
 
         def replace(self, old, new, count=-1):
             if not isinstance(old, Byt) or not isinstance(new, Byt):
-            #if not type(old).__name__ == self.__class__.__name__ or\
-            #        not type(new).__name__ == self.__class__.__name__:
                 raise TypeError("can't replace with non-Byt characters")
             return type(self)(super().replace(old, new, count))
 
@@ -186,24 +190,18 @@ if PYTHON3:
 
         def strip(self, bytes=None):
             if not isinstance(bytes, Byt) and bytes is not None:
-            #if not type(bytes).__name__ == self.__class__.__name__\
-            #                                        and bytes is not None:
                 raise TypeError("can't strip {} in {}"\
                         .format(type(bytes).__name__, type(self).__name__))
             return type(self)(super().strip(bytes))
 
         def lstrip(self, bytes=None):
             if not isinstance(bytes, Byt) and bytes is not None:
-            #if not type(bytes).__name__ == self.__class__.__name__\
-            #                                        and bytes is not None:
                 raise TypeError("can't lstrip {} in {}"\
                         .format(type(bytes).__name__, type(self).__name__))
             return type(self)(super().lstrip(bytes))
 
         def rstrip(self, bytes=None):
             if not isinstance(bytes, Byt) and bytes is not None:
-            #if not type(bytes).__name__ == self.__class__.__name__\
-            #                                        and bytes is not None:
                 raise TypeError("can't rstrip {} in {}"\
                         .format(type(bytes).__name__, type(self).__name__))
             return type(self)(super().rstrip(bytes))
@@ -213,14 +211,12 @@ if PYTHON3:
                 return type(self)()
             for item in iterable_of_bytes:
                 if not isinstance(item, Byt):
-                #if not type(item).__name__ == self.__class__.__name__:
                     raise TypeError("can't join non-Byt characters")
             else:
                 return type(self)(super().join(iterable_of_bytes))
 
         def find(self, sub, start=None, end=None):
             if not isinstance(sub, Byt):
-            #if not type(sub).__name__ == self.__class__.__name__:
                 raise TypeError("can't find {} in {}"\
                     .format(type(sub).__name__, type(self).__name__))
             else:
@@ -228,7 +224,6 @@ if PYTHON3:
 
         def count(self, sub, start=None, end=None):
             if not isinstance(sub, Byt):
-            #if not type(sub).__name__ == self.__class__.__name__:
                 raise TypeError("can't count {} in {}"\
                         .format(type(sub).__name__, type(self).__name__))
             else:
@@ -236,7 +231,6 @@ if PYTHON3:
 
         def endswith(self, suffix, start=None, end=None):
             if not isinstance(suffix, Byt):
-            #if not type(suffix).__name__ == self.__class__.__name__:
                 raise TypeError("can't search {} in {}"\
                         .format(type(suffix).__name__, type(self).__name__))
             else:
@@ -244,7 +238,6 @@ if PYTHON3:
 
         def startswith(self, prefix, start=None, end=None):
             if not isinstance(prefix, Byt):
-            #if not type(prefix).__name__ == self.__class__.__name__:
                 raise TypeError("can't search {} in {}"\
                         .format(type(prefix).__name__, type(self).__name__))
             else:
@@ -255,15 +248,28 @@ else:
     from types import GeneratorType
 
     class Byt(str):
-        def __new__(cls, value=''):
+        """Python version-independent bytes-chains object, displayed as bytes
+
+        >> b = Byt([33,34,35,36])
+        >> b
+        DByt('!"#$')
+        >> str(b)
+        '!"#$'
+        """
+        def __new__(cls, *args):
+            l = len(args)
+            if l > 1:  # many args in
+                value = args
+            elif l == 1:  # one arg
+                value = args[0]
+            else:  # empty input
+                value = ''
             if isinstance(value, int):
                 value = chr(value)
             elif isinstance(value, GeneratorType):
                 value = list(value)
-            if isinstance(value, Byt):
-                return value
-            #elif isinstance(value, unicode):
-            #    value = value.encode('utf-8')
+            elif isinstance(value, Byt):
+                value = value.str()
             elif hasattr(value, "__iter__"):
                 if len(value) > 0:
                     if isinstance(value[0], int):
@@ -281,7 +287,6 @@ else:
 
         def __eq__(self, other):
             if not isinstance(other, Byt):
-            #if not type(other).__name__ == self.__class__.__name__:
                 if isinstance(other, (str, unicode)):
                     raise TypeError("can't compare {} and {}"\
                             .format(type(self).__name__, type(other).__name__))
@@ -300,7 +305,6 @@ else:
 
         def __ne__(self, other):
             if not isinstance(other, Byt):
-            #if not type(other).__name__ == self.__class__.__name__:
                 if isinstance(other, (str, unicode)):
                     raise TypeError("can't compare {} and {}"\
                             .format(type(self).__name__, type(other).__name__))
@@ -313,6 +317,9 @@ else:
             return super(Byt, self).__str__()
 
         def str(self):
+            """
+            Returns an ISO-8859-1 representation of the octets
+            """
             return super(Byt, self).__str__()
 
         def __hash__(self):
@@ -328,14 +335,12 @@ else:
 
         def __add__(self, txt):
             if not isinstance(txt, Byt):
-            #if not type(txt).__name__ == self.__class__.__name__:
                 raise TypeError("can't concat {} to {}"\
                         .format(type(self).__name__, type(txt).__name__))
             return type(self)(super(Byt, self).__add__(txt))
 
         def __radd__(self, txt):
             if not isinstance(txt, Byt):
-            #if not type(txt).__name__ == self.__class__.__name__:
                 raise TypeError("can't concat {} to {}"\
                         .format(type(self).__name__, type(txt).__name__))
             return txt.__add__(self)
@@ -348,12 +353,11 @@ else:
 
         def __contains__(self, other):
             if not isinstance(other, Byt):
-            #if not type(other).__name__ == self.__class__.__name__:
-                if isinstance(other, (str, unicode)):
-                    raise TypeError("can't compare {} to "\
+                if not isinstance(other, int):
+                    raise TypeError("can't compare {} to {}"\
                             .format(type(self).__name__, type(other).__name__))
                 else:
-                    return False
+                    return other in self.ints()
             else:
                 return super(Byt, self).__contains__(other)
 
@@ -378,24 +382,19 @@ else:
 
         def split(self, sep=None, maxsplit=-1):
             if not isinstance(sep, Byt) and sep is not None:
-            #if not type(sep).__name__ == self.__class__.__name__\
-            #                                        and sep is not None:
                 raise TypeError("can't split {} with {}"\
                         .format(type(self).__name__, type(sep).__name__))
             return list(map(type(self), super(Byt, self).split(sep, maxsplit)))
 
         def rsplit(self, sep=None, maxsplit=-1):
             if not isinstance(sep, Byt) and sep is not None:
-            #if not type(sep).__name__ == self.__class__.__name__\
-            #                                        and sep is not None:
                 raise TypeError("can't rsplit {} with {}"\
                         .format(type(self).__name__, type(sep).__name__))
-            return list(map(type(self), super(Byt, self).rsplit(sep, maxsplit)))
+            return list(map(type(self),
+                            super(Byt, self).rsplit(sep, maxsplit)))
 
         def replace(self, old, new, count=-1):
             if not isinstance(old, Byt) or not isinstance(new, Byt):
-            #if not type(old).__name__ == self.__class__.__name__ or\
-            #        not type(new).__name__ == self.__class__.__name__:
                 raise TypeError("can't replace with non-Byt characters")
             return type(self)(super(Byt, self).replace(old, new, count))
 
@@ -404,24 +403,18 @@ else:
 
         def strip(self, bytes=None):
             if not isinstance(bytes, Byt) and bytes is not None:
-            #if not type(bytes).__name__ == self.__class__.__name__\
-            #                                        and bytes is not None:
                 raise TypeError("can't strip {} in {}"\
                         .format(type(bytes).__name__, type(self).__name__))
             return type(self)(super(Byt, self).strip(bytes))
 
         def lstrip(self, bytes=None):
             if not isinstance(bytes, Byt) and bytes is not None:
-            #if not type(bytes).__name__ == self.__class__.__name__\
-            #                                        and bytes is not None:
                 raise TypeError("can't strip {} in {}"\
                         .format(type(bytes).__name__, type(self).__name__))
             return type(self)(super(Byt, self).lstrip(bytes))
 
         def rstrip(self, bytes=None):
             if not isinstance(bytes, Byt) and bytes is not None:
-            #if not type(bytes).__name__ == self.__class__.__name__\
-            #                                        and bytes is not None:
                 raise TypeError("can't strip {} in {}"\
                         .format(type(bytes).__name__, type(self).__name__))
             return type(self)(super(Byt, self).rstrip(bytes))
@@ -431,14 +424,12 @@ else:
                 return type(self)()
             for item in iterable_of_bytes:
                 if not isinstance(item, Byt):
-                #if not type(item).__name__ == self.__class__.__name__:
                     raise TypeError("can't join non-Byt characters")
             else:
                 return type(self)(super(Byt, self).join(iterable_of_bytes))
 
         def find(self, sub, start=None, end=None):
             if not isinstance(sub, Byt):
-            #if not type(sub).__name__ == self.__class__.__name__:
                 raise TypeError("can't find {} in {}"\
                         .format(type(sub).__name__, type(self).__name__))
             else:
@@ -446,7 +437,6 @@ else:
 
         def count(self, sub, start=None, end=None):
             if not isinstance(sub, Byt):
-            #if not type(sub).__name__ == self.__class__.__name__:
                 raise TypeError("can't count {} in {}"\
                         .format(type(sub).__name__, type(self).__name__))
             else:
@@ -454,7 +444,6 @@ else:
 
         def endswith(self, suffix, start=None, end=None):
             if not isinstance(suffix, Byt):
-            #if not type(suffix).__name__ == self.__class__.__name__:
                 raise TypeError("can't search {} in {}"\
                         .format(type(suffix).__name__, type(self).__name__))
             else:
@@ -462,7 +451,6 @@ else:
 
         def startswith(self, prefix, start=None, end=None):
             if not isinstance(prefix, Byt):
-            #if not type(prefix).__name__ == self.__class__.__name__:
                 raise TypeError("can't search {} in {}"\
                         .format(type(prefix).__name__, type(self).__name__))
             else:
@@ -470,6 +458,14 @@ else:
 
 
 class DByt(Byt):
+    """Python version-independent bytes-chains object, displayed as hex
+
+    >>> b = DByt([33,34,35,36])
+    >>> b
+    DByt('!"#$')
+    >>> str(b)
+    '21 22 23 24'
+    """
     def __str__(self):
         return self.hex()
 

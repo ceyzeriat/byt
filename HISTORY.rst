@@ -1,5 +1,11 @@
+1.0.13 (2017-11-12)
++++++++++++++++++++
+
+- Added docs
+
+
 1.0.12 (2017-08-12)
-++++++++++++++++++
++++++++++++++++++++
 
 - Added DByt hexadecimal as the default __str__, while __repr__ remains ASCII-based
 - New method 'str'
