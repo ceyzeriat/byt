@@ -117,7 +117,7 @@ def test_Byt_DByt_compatibility():
     assert Byt(12) + DByt(12) == Byt([12,12])
     assert Byt(DByt(1,2)) == DByt(Byt([1,2]))
     assert DByt(Byt('azer')) == Byt('azer')
-    assert hash(Byt(12)) = hash(DByt(12))
+    assert hash(Byt(12)) == hash(DByt(12))
 
 def test_fct_compatibility():
     assert DByt('azc').split(Byt('z')) == [DByt('a'), Byt('c')]

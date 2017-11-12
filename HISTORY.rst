@@ -1,7 +1,8 @@
-1.0.13 (2017-11-12)
+1.1 (2017-11-12)
 +++++++++++++++++++
 
-- Added docs
+- Added docs and tests
+- New initialization of Byt/DByt object: Byt(1,2,3)
 
 
 1.0.12 (2017-08-12)
