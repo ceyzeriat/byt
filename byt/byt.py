@@ -47,7 +47,7 @@ if PYTHON3:
     class Byt(bytes):
         def __new__(cls, value=''):
             if isinstance(value, Byt):
-                value = value.str()
+                return value
             if isinstance(value, str):
                 # It's a unicode string:
                 value = value.encode('ISO-8859-1')
@@ -261,12 +261,16 @@ else:
             elif isinstance(value, GeneratorType):
                 value = list(value)
             if isinstance(value, Byt):
-                value = value.str()
+                return value
+            #elif isinstance(value, unicode):
+            #    value = value.encode('utf-8')
             elif hasattr(value, "__iter__"):
                 if len(value) > 0:
                     if isinstance(value[0], int):
                         # It's a list of integers
                         value = ''.join(chr(item) for item in value)
+                else:
+                    value = ''
             return super(Byt, cls).__new__(cls, value)
 
         def __getitem__(self, pos):
@@ -376,7 +380,8 @@ else:
             if not isinstance(sep, Byt) and sep is not None:
             #if not type(sep).__name__ == self.__class__.__name__\
             #                                        and sep is not None:
-                raise TypeError("can't split {} with {}" + type(sep).__name__)
+                raise TypeError("can't split {} with {}"\
+                        .format(type(self).__name__, type(sep).__name__))
             return list(map(type(self), super(Byt, self).split(sep, maxsplit)))
 
         def rsplit(self, sep=None, maxsplit=-1):
