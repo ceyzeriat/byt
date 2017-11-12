@@ -47,10 +47,10 @@ if PYTHON3:
     class Byt(bytes):
         """Python version-independent bytes-chains object, displayed as bytes
 
-        >> b = Byt([33,34,35,36])
-        >> b
-        DByt('!"#$')
-        >> str(b)
+        >>> b = Byt([33,34,35,36])
+        >>> b
+        Byt('!"#$')
+        >>> str(b)
         '!"#$'
         """
         def __new__(cls, *args):
@@ -106,7 +106,7 @@ if PYTHON3:
 
         def str(self):
             """
-            Returns an ISO-8859-1 representation of the octets
+            Returns an ISO-8859-1/ASCII representation of the octets
             """
             return self.decode('ISO-8859-1')
 
@@ -250,12 +250,12 @@ else:
     class Byt(str):
         """Python version-independent bytes-chains object, displayed as bytes
 
-        >> b = Byt([33,34,35,36])
-        >> b
-        DByt('!"#$')
-        >> str(b)
-        '!"#$'
-        """
+            >>> b = Byt([33,34,35,36])
+            >>> b
+            Byt('!"#$')
+            >>> str(b)
+            '!"#$'
+            """
         def __new__(cls, *args):
             l = len(args)
             if l > 1:  # many args in
@@ -318,7 +318,7 @@ else:
 
         def str(self):
             """
-            Returns an ISO-8859-1 representation of the octets
+            Returns an ISO-8859-1/ASCII representation of the octets
             """
             return super(Byt, self).__str__()
 
