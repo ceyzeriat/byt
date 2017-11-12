@@ -7,7 +7,7 @@
 .. image:: http://img.shields.io/badge/license-GPLv3-blue.svg?style=flat
     :target: https://github.com/ceyzeriat/byt/blob/master/LICENSE
 
-:Name: joystick
+:Name: byt
 :Website: https://github.com/ceyzeriat/byt
 :Author: Guillaume Schworer
 :Version: 1.1
