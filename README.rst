@@ -54,13 +54,13 @@ You'll just use it like this:
 
     >>> b = Byt('hello world!')
     >>> print(b)
-    Byt('hello world!')
+    Byt('hello world!')  # display as ASCII
     
     >>> (Byt(1,2) + Byt("\x01\x02") + Byt([1,2])).hex()
     '01 02 01 02 01 02'
     
     >>> print(b.hex())
-    68 65 6c 6c 6f 20 77 6f 72 6c 64 21
+    '68 65 6c 6c 6f 20 77 6f 72 6c 64 21'
     
     >>> eval(repr(b)) == b
     True
@@ -77,10 +77,11 @@ You'll just use it like this:
     >>> b = DByt('hello world!')
     
     >>> print(b)
-    68 65 6c 6c 6f 20 77 6f 72 6c 64 21
+    '68 65 6c 6c 6f 20 77 6f 72 6c 64 21'  # display as hex
     
     >>> eval(repr(b)) == b
     True
+    
     
     # inter-compatibility
     
@@ -91,7 +92,7 @@ You'll just use it like this:
     DByt('yesno')
     
     >>> print(DByt('yes') + Byt('no'))
-    79 65 73 6e 6f
+    '79 65 73 6e 6f'
 
 
 Documentation
