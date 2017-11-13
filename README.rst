@@ -48,40 +48,49 @@ corresponding hexadecimal values. These classes are full inter-operable.
 
 You'll just use it like this:
 
-::
+.. code-block:: python
 
     from byt import Byt
 
-    >> b = Byt('hello world!')
-    >> print(b)
+    >>> b = Byt('hello world!')
+    >>> print(b)
     Byt('hello world!')
-    >> (Byt(1,2) + Byt("\x01\x02") + Byt([1,2])).hex()
+    
+    >>> (Byt(1,2) + Byt("\x01\x02") + Byt([1,2])).hex()
     '01 02 01 02 01 02'
-    >> print(b.hex())
+    
+    >>> print(b.hex())
     68 65 6c 6c 6f 20 77 6f 72 6c 64 21
-    >> eval(repr(b)) == b
+    
+    >>> eval(repr(b)) == b
     True
-    >> print(Byt('str1') + 'str2')
+    
+    >>> print(Byt('str1') + 'str2')
     TypeError: can't concat Byt to str
-    >> byt.Byt('str1')[2:].ints()
+    
+    >>> byt.Byt('str1')[2:].ints()
     [114, 49]
     
     
     from byt import DByt
     
-    >> b = DByt('hello world!')
-    >> print(b)
+    >>> b = DByt('hello world!')
+    
+    >>> print(b)
     68 65 6c 6c 6f 20 77 6f 72 6c 64 21
-    >> eval(repr(b)) == b
+    
+    >>> eval(repr(b)) == b
     True
     
     # inter-compatibility
     
-    >> DByt('yes') == Byt('yes')
+    >>> DByt('yes') == Byt('yes')
     True
-    >> DByt('yes') + Byt('no')
+    
+    >>> DByt('yes') + Byt('no')
     DByt('yesno')
-    >> print(DByt('yes') + Byt('no'))
+    
+    >>> print(DByt('yes') + Byt('no'))
     79 65 73 6e 6f
 
 
@@ -90,19 +99,19 @@ Documentation
 
 All the options are documented in the docstrings for the classes. These can be viewed in a Python shell using:
 
-::
+.. code-block:: python
 
-    >> from byt import Byt, DByt
-    >> print(Byt.__doc__)
-    >> print(DByt.__doc__)
+    >>> from byt import Byt, DByt
+    >>> print(Byt.__doc__)
+    >>> print(DByt.__doc__)
 
 or, in IPython using:
 
-::
+.. code-block:: python
 
-    >> from byt import Byt
-    >> Byt?
-    >> DByt?
+    >>> from byt import Byt
+    >>> Byt?
+    >>> DByt?
 
 
 License
