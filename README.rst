@@ -118,7 +118,7 @@ or, in IPython using:
 License
 -------
 
-Copyright 2017 Guillaume Schworer
+Copyright 2018 Guillaume Schworer
 
 patiencebar is free software made available under the GNU General
 Public License v3 or later (GPLv3+) license (see ``LICENSE``).
